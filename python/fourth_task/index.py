@@ -1,8 +1,10 @@
-import math
-
 input = [
     input(),
 ]
+
+
+def ceil(number: int) -> int:
+    return int(number) + 1 if number % 2 else 0
 
 
 def get_possible_ways_amount(board_width: int, board_height: int) -> int:
@@ -18,15 +20,15 @@ def get_possible_ways_amount(board_width: int, board_height: int) -> int:
     if (not current_diagonal):
         return 0
 
-    offset: int = math.floor(abs(board_width - board_height) / 2)
-    result_index: int = math.ceil(len(current_diagonal) / 2) - 1 + offset
+    offset: int = abs(board_width - board_height) // 2
+    result_index: int = ceil(len(current_diagonal) / 2) - 1 + offset
     if (result_index >= len(current_diagonal) or result_index < 0):
         return 0
 
-    return current_diagonal[math.ceil(len(current_diagonal) / 2) - 1 + offset]
+    return current_diagonal[result_index]
 
 
-def generate_diagonals() -> dict[str, list[int]]:
+def generate_diagonals():
     """
     Cоздает словарь диагоналей на которые модет встать конь и массив с возможным количеством вариантов
     дойти в кажду точку этой диагонали

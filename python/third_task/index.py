@@ -1,13 +1,12 @@
 import math
 
-
 input = [
     input(),
     input(),
 ]
 
 
-def get_paint_buckets_amount(quantity: list[int]) -> int:
+def get_paint_buckets_amount(quantity) -> int:
     """
     Функция находит минимальное число, чтобы сгенерировать последовательность которая не расстроить Петю
     исходя из переданного мультимножеста
