@@ -1,0 +1,39 @@
+{
+  "name": "simple-package-json",
+  "version": "1.0.0",
+  "description": "Use this config for ease js tasks with tests",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "lint": "npm run lint:es",
+    "lint:fix": "npm run lint:es:fix",
+    "lint:es": "eslint **/*.js",
+    "lint:es:fix": "eslint --fix **/*.js",
+    "lint:css": "# stylelint **/*.css",
+    "start": "live-server --port=8000"
+  },
+  "author": "Barabanov Gregory https://github.com/grishbar",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/polyfill": "^7.6.0",
+    "@babel/preset-env": "7.13.10",
+    "@babel/register": "^7.6.2",
+    "babel-jest": "24.9.0",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.16.0",
+    "jest": "24.9.0",
+    "live-server": "^1.2.1",
+    "stylelint": "^11.1.1",
+    "stylelint-config-standard": "^19.0.0"
+  },
+  "dependencies": {
+    "delay": "^4.3.0",
+    "eslint-plugin-jest": "^26.0.0"
+  }
+}
