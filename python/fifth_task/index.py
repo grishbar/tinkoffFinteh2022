@@ -1,51 +1,46 @@
-import math
-
 input = [
+    input(),
+    input(),
     input(),
 ]
 
 
-def get_possible_ways_amount(board_width: int, board_height: int) -> int:
-    """
-    Функция находит количество способов пройти через доску, из левой нижней клетки доски до правой верхней
-    :param board_width: мультимножество чисел
-    :param board_height: мультимножество чисел
-    :return: число (int) - количество способов добраться конем до правого верхнего угла доски
-    """
-    diagonals_dict: dict[str, list[int]] = generate_diagonals()
-    current_diagonal: list[int] = diagonals_dict.get(str(board_width + board_height))
+def get_minimum_jumps_amount(
+    mountain_height: int,
+    possible_jumps: list[int],
+    possible_slides: list[int]
+) -> int:
+    visited = {}
 
-    if (not current_diagonal):
-        return 0
+    def find_min_ways_from_index(start):
+        min_jumps = float('inf')
 
-    offset: int = math.floor(abs(board_width - board_height) / 2)
-    result_index: int = math.ceil(len(current_diagonal) / 2) - 1 + offset
-    if (result_index >= len(current_diagonal) or result_index < 0):
-        return 0
+        jump_len = possible_jumps[start]
+        while(jump_len >= 0):
+            jump_to = start - jump_len
+            if (jump_to < 0):
+                return 1
 
-    return current_diagonal[math.ceil(len(current_diagonal) / 2) - 1 + offset]
+            slide_to = jump_to + possible_slides[jump_to]
+            if (not visited.get(slide_to)):
+                visited[slide_to] = float('inf')
+                way = find_min_ways_from_index(slide_to)
+                visited[slide_to] = way
 
+            min_jumps = min(min_jumps, visited[slide_to])
+            jump_len -= 1
 
-def generate_diagonals() -> dict[str, list[int]]:
-    """
-    Cоздает словарь диагоналей на которые модет встать конь и массив с возможным количеством вариантов
-    дойти в кажду точку этой диагонали
-    :return: словарь - где ключ это число диагонали а значения, это список из
-    возможных способов добраться до точек на этой диагонали
-    """
-    diagonals_dict: dict[str, list[int]] = {'2': [1]}
+        return min_jumps + 1
 
-    for diagonal_number in range(5, 50, 3):
-        prev_list: dict[str, list[int]] = diagonals_dict[str(diagonal_number - 3)]
-        new_list: list[int] = []
+    ways = find_min_ways_from_index(mountain_height - 1)
 
-        for i in range(0, len(prev_list) - 1, 1):
-            new_list.append(prev_list[i] + prev_list[i + 1])
-        diagonals_dict[str(diagonal_number)] = [1] + new_list + [1]
-
-    return diagonals_dict
+    return ways if (ways < float('inf')) else - 1
 
 
 # предпологаем, что все данные вводятся корректно, поэтому проверять их не будем
-board_width, board_height = list(map(int, input[0].split(' ')))
-print(get_possible_ways_amount(board_width, board_height))
+mountain_height = int(input[0])
+possible_jumps = list(map(int, input[1].split(' ')))
+possible_slides = list(map(int, input[2].split(' ')))
+print(
+    get_minimum_jumps_amount(mountain_height, possible_jumps, possible_slides)
+)
