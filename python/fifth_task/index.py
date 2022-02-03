@@ -7,8 +7,8 @@ input = [
 
 def get_minimum_jumps_amount(
     mountain_height: int,
-    possible_jumps: list[int],
-    possible_slides: list[int]
+    possible_jumps,
+    possible_slides
 ) -> int:
     visited = {}
 
